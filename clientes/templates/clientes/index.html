@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <ol class="breadcrumb card-header">
+                        <li class="breadcrumb-item active">Clientes</li>
+                    </ol>
+
+                    <div class="card-body">
+                        <p>
+                            <a class="btn btn-info" href="/cliente/adicionar">Adicionar</a>
+                        </p>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nome</th>
+                                    <th>Telefone</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for cliente in clientes %}
+                                <tr>
+                                    <th scope="row">{{cliente.id}}</th>
+                                    <td>{{cliente.nome}}</td>
+                                    <td>{{cliente.telefone}}</td>
+                                    <td>
+                                        <a class="btn btn-dark" href="/cliente/detalhe/{{cliente.id}}">Detalhe</a>
+                                        <a class="btn btn-dark" href="/cliente/editar/{{cliente.id}}">Editar</a>
+                                        <a class="btn btn-danger" href="javascript:(confirm('Deletar esse registro?') ? window.location.href='/cliente/deletar/{{cliente.id}}' : false)">Deletar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="row justify-content-center">
+                            {% if clientes.has_previous %}
+                                <a class="btn btn-link" href="/cliente/?page={{ clientes.previous_page_number }}">{{ clientes.previous_page_number }}</a>
+                            {% endif %}
+
+                            {% if clientes.paginator.num_pages %}
+                                {{ clientes.number }} de {{ clientes.paginator.num_pages }}
+                            {% endif %}
+
+                            {% if clientes.has_next %}
+                                <a class="btn btn-link" href="/cliente/?page={{ clientes.next_page_number }}">{{ clientes.next_page_number }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

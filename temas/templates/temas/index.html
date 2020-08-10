@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <ol class="breadcrumb card-header">
+                        <li class="breadcrumb-item active">Temas</li>
+                    </ol>
+
+                    <div class="card-body">
+                        <p>
+                            <a class="btn btn-info" href="/tema/adicionar">Adicionar</a>
+                        </p>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nome</th>
+                                    <th>Valor Aluguel</th>
+                                    <th>Cor Destaque</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for tema in temas %}
+                                <tr>
+                                    <th scope="row">{{tema.id}}</th>
+                                    <td>{{tema.nome}}</td>
+                                    <td>{{tema.valorAluguel}}</td>
+                                    <td>{{tema.corDestaque}}</td>
+                                    <td>
+                                        <a class="btn btn-dark" href="/tema/detalhe/{{tema.id}}">Detalhe</a>
+                                        <a class="btn btn-dark" href="/tema/editar/{{tema.id}}">Editar</a>
+                                        <a class="btn btn-danger" href="javascript:(confirm('Deletar esse registro?') ? window.location.href='/tema/deletar/{{tema.id}}' : false)">Deletar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="row justify-content-center">
+                            {% if temas.has_previous %}
+                                <a class="btn btn-link" href="/tema/?page={{ temas.previous_page_number }}">{{ temas.previous_page_number }}</a>
+                            {% endif %}
+
+                            {% if temas.paginator.num_pages %}
+                                {{ temas.number }} de {{ temas.paginator.num_pages }}
+                            {% endif %}
+
+                            {% if temas.has_next %}
+                                <a class="btn btn-link" href="/tema/?page={{ temas.next_page_number }}">{{ temas.next_page_number }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

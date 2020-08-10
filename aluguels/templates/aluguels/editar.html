@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <ol class="breadcrumb card-header">
+                        <li class="breadcrumb-item"><a href="/cliente">Clientes</a></li>
+                        <li class="breadcrumb-item"><a href="/cliente/detalhe/{{aluguel.cliente.id}}">Detalhe</a></li>
+                        <li class="breadcrumb-item active">Editar Aluguel</li>
+                    </ol>
+
+                    <div class="card-body">
+                        <p><b>Cliente: </b>{{aluguel.cliente.nome}}</p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button class="btn btn-info">Atualizar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

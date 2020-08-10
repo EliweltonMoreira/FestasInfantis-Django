@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <ol class="breadcrumb card-header">
+                        <li class="breadcrumb-item"><a href="/tema">Temas</a></li>
+                        <li class="breadcrumb-item active">Detalhe</li>
+                    </ol>
+
+                    <div class="card-body">
+                        <p><b>Tema: </b>{{tema.nome}}</p>
+                        <p><b>Valor do Aluguel: </b>R$ {{tema.valorAluguel}}</p>
+                        <p><b>Cor de Destaque: </b>{{tema.corDestaque}}</p>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for item in items %}
+                                <tr>
+                                    <th scope="row">{{item.id}}</th>
+                                    <td>{{item.nome}}</td>
+                                    <td>{{item.descricao}}</td>
+                                    <td>
+                                        <a class="btn btn-dark" href="/item/editar/{{item.id}}">Editar</a>
+                                        <a class="btn btn-danger" href="javascript:(confirm('Deletar esse registro?') ? window.location.href='/item/deletar/{{item.id}}' : false)">Deletar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <p>
+                            <a class="btn btn-info" href="/item/adicionar/{{tema.id}}">Adicionar Item</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
